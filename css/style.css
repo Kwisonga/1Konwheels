@@ -1,1 +1,63 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
 
+.loader {
+    border-top-color: #3498db;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.price-display {
+    background-color: #f3f4f6; /* bg-gray-200 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 0.75rem; /* p-3 */
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    text-align: center;
+}
+
+/* Style Choices.js to match Tailwind form elements */
+.choices__inner {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    min-height: auto;
+}
+
+.choices[data-type*="select-one"] .choices__inner {
+     padding-bottom: 0.45rem;
+}
+
+.choices__input {
+    background-color: white !important;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background-color: #3b82f6 !important;
+}
+
+/* Floating Exchange Rate Style */
+.floating-exchange-rate {
+    position: fixed;
+    top: 5.5rem; /* Adjusted for sticky header */
+    right: 1rem;
+    z-index: 40; /* Lower than header */
+    background-color: #eff6ff; /* bg-blue-50 */
+    padding: 0.75rem; /* p-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #bfdbfe; /* border-blue-200 */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
