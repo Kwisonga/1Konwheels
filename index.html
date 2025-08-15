@@ -1,2 +1,223 @@
-<!-- In about.html -->
-<script src="js/index.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rwanda Car Import Tax Calculator | 1000 Hills On Wheels</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-2xl font-bold text-blue-800">1000 Hills On Wheels</a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="font-semibold text-blue-700 hover:text-blue-800">Vehicles</a>
+                    <a href="about.html" class="font-medium text-gray-500 hover:text-blue-700">About</a>
+                    <a href="products.html" class="font-medium text-gray-500 hover:text-blue-700">Products</a>
+                    <a href="news.html" class="font-medium text-gray-500 hover:text-blue-700">News</a>
+                    <a href="contact.html" class="font-medium text-gray-500 hover:text-blue-700">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div id="exchange-rate-display" class="floating-exchange-rate">
+        <p class="text-sm font-medium text-blue-700">Fetching Rate...</p>
+    </div>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-800">Rwanda Car Import Tax Calculator</h1>
+            <p class="text-gray-600 mt-2">Estimate the taxes and duties for importing a vehicle into Rwanda.</p>
+        </header>
+
+        <main class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+            <div id="calculator-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="car-maker" class="block text-sm font-medium text-gray-700 mb-1">Car Maker (Brand)</label>
+                        <select id="car-maker" class="w-full">
+                            <option value="">Loading Brands...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="manufacturing-year" class="block text-sm font-medium text-gray-700 mb-1">Manufacturing Year</label>
+                        <select id="manufacturing-year" class="w-full">
+                            <option value="">Select Maker First</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="car-model" class="block text-sm font-medium text-gray-700 mb-1">Car Model</label>
+                        <select id="car-model" class="w-full">
+                            <option value="">Select Year First</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="car-spec" class="block text-sm font-medium text-gray-700 mb-1">Specifications</label>
+                        <select id="car-spec" class="w-full">
+                            <option value="">Select Model First</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2">
+                         <label for="rra-price-display" class="block text-sm font-medium text-gray-700 mb-1">Price (USD when new - RRA)</label>
+                        <div id="rra-price-display" class="price-display h-full flex items-center justify-center">
+                            $ 0.00
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="freight-cost" class="block text-sm font-medium text-gray-700 mb-1">Freight Cost (USD)</label>
+                            <input type="number" id="freight-cost" placeholder="e.g., 4000" max="20000" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="insurance-cost" class="block text-sm font-medium text-gray-700 mb-1">Insurance Cost (USD)</label>
+                            <input type="number" id="insurance-cost" placeholder="e.g., 200" max="5000" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="fuel-type" class="block text-sm font-medium text-gray-700 mb-1">Fuel Type</label>
+                        <select id="fuel-type" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Select Fuel Type</option>
+                            <option value="Fuel">Fuel (Petrol/Diesel)</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Electric">Electric</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="engine-capacity" class="block text-sm font-medium text-gray-700 mb-1">Engine Capacity (CC)</label>
+                        <input type="number" id="engine-capacity" placeholder="e.g., 1998" max="9999" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="utility-type" class="block text-sm font-medium text-gray-700 mb-1">Vehicle Type / Utility</label>
+                        <select id="utility-type" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                           <option value="">Select Utility</option>
+                           <option>Sedan</option>
+                           <option>SUV</option>
+                           <option>Pick up</option>
+                           <option>Minibus</option>
+                           <option>Bus</option>
+                           <option>Tractor</option>
+                           <option>Small Truck</option>
+                           <option>Large Truck</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button id="calculate-btn" class="w-full md:w-1/2 bg-blue-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-800 transition-colors duration-300 text-lg">
+                        Calculate Taxes
+                    </button>
+                </div>
+            </div>
+            
+            <div id="loader" class="hidden justify-center items-center my-8">
+                <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div>
+            </div>
+
+            <div id="results" class="hidden mt-10">
+                 <div class="text-center">
+                    <h2 class="text-2xl font-bold text-gray-800">Tax Estimation Report</h2>
+                    <p id="report-car-details" class="text-lg text-gray-600 font-semibold mb-4 border-b pb-3"></p>
+                 </div>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Total Estimated Taxes</p>
+                            <p id="total-tax-rwf" class="text-2xl font-bold text-blue-800">RWF 0</p>
+                            <p id="total-tax-usd" class="text-lg font-semibold text-blue-600">$ 0</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-600">Total Landed Cost</p>
+                            <p id="total-landed-cost-rwf" class="text-2xl font-bold text-green-800">RWF 0</p>
+                            <p id="total-landed-cost-usd" class="text-lg font-semibold text-green-600">$ 0</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <h3 class="text-xl font-semibold mb-4 text-center">Calculation Breakdown</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg divide-y divide-gray-200">
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">Car Value (as new):</span>
+                                <span id="car-value-new" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">Car Age:</span>
+                                <span id="car-age" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">Depreciation Rate (RRA):</span>
+                                <span id="depreciation-rate" class="font-bold text-red-600"></span>
+                            </div>
+                             <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">Depreciated Car Value (FOB):</span>
+                                <span id="fob-value" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">CIF Value (Taxable Base):</span>
+                                <span id="cif-value" class="font-bold text-blue-700"></span>
+                            </div>
+                             <div class="border-t-2 border-dashed my-3"></div>
+                            <div class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Infrastructure Levy (1.5%):</span>
+                                <span id="infra-levy" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Customs Duty:</span>
+                                <span id="customs-duty" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Excise Duty:</span>
+                                <span id="excise-duty" class="font-bold"></span>
+                            </div>
+                             <div id="withholding-tax-row" class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Withholding Tax (5%):</span>
+                                <span id="withholding-tax" class="font-bold"></span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Value Added Tax (VAT) (18%):</span>
+                                <span id="vat" class="font-bold"></span>
+                            </div>
+                             <div class="flex justify-between items-center py-2 text-blue-900">
+                                <span class="font-medium">Registration Fee:</span>
+                                <span id="registration-fee" class="font-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="mt-6 text-center">
+                        <button id="recalculate-btn" class="bg-gray-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                            Calculate Another
+                        </button>
+                    </div>
+                </div>
+            </div>
+             <div id="error-message" class="hidden mt-6 text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline" id="error-text"></span>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-8 text-sm text-gray-500">
+            <p class="mt-1 text-blue-700"><strong>Disclaimer:</strong> This is an estimation tool. Final taxes are determined by the Rwanda Revenue Authority (RRA) or its authorized tax clearance agent.</p>
+            <p>&copy; 2025 1000 Hills On Wheels. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
